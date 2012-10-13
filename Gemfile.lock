@@ -1,0 +1,38 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    addressable (2.2.7)
+    crack (0.1.8)
+    daemons (1.1.3)
+    eventmachine (0.12.10)
+    faraday (0.7.6)
+      addressable (~> 2.2)
+      multipart-post (~> 1.1)
+      rack (~> 1.1)
+    httparty (0.7.8)
+      crack (= 0.1.8)
+    json (1.5.4)
+    koala (1.3.0)
+      faraday (~> 0.7.0)
+      multi_json (~> 1.0)
+    multi_json (1.0.3)
+    multipart-post (1.1.5)
+    rack (1.3.2)
+    sinatra (1.2.6)
+      rack (~> 1.1)
+      tilt (>= 1.2.2, < 2.0)
+    thin (1.2.11)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
+    tilt (1.3.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  httparty
+  json
+  koala
+  sinatra
+  thin
