@@ -1,5 +1,6 @@
 require "sinatra"
 require 'koala'
+require 'debugger'
 
 enable :sessions
 set :raise_errors, false
