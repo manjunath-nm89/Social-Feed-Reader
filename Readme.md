@@ -1,4 +1,4 @@
-Social-Feed-Reader
+FB Feed Reader
 ==================
 
 Facebook public news feed search
