@@ -7,9 +7,37 @@ $(document).ready(function() {
         url: "/search",
         data: {query: searchValue},
         beforeSend: function(){ 
-          $(".ajax-spinner").show();
+          $(".ajax-spinner").css({visibility: "visible"});
+        },
+        complete: function(data){
+          $(".ajax-spinner").css({visibility: "hidden"});
+          $("#result_set").html(data.responseText);
         }
       });
     }
+  });
+
+  $(".show-more-div a#show_more_link").live("click", function(event){
+    event.preventDefault();
+    var showMoreDiv = jQuery(this).closest(".show-more-div");
+    var aLink = jQuery(this);
+    $.ajax({
+      url: "/search",
+      data: {
+        pagination: true,
+        q: aLink.data("q"), 
+        access_token: aLink.data("access-token"), 
+        until: aLink.data("until"),
+        limit: aLink.data("limit")
+      },
+      beforeSend: function(){ 
+        aLink.hide();
+        showMoreDiv.find(".ajax-spinner").show();
+      },
+      complete: function(data){
+        showMoreDiv.remove();
+        $("#result_set").append(data.responseText);
+      }
+    });
   });
 });

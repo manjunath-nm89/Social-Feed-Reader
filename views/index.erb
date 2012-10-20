@@ -133,7 +133,7 @@
                 </ul>
               </div>
               <h1>Welcome, <strong><%= @user['name'] %></strong></h1>
-              <h2>Search public posts and posts of your friends</h2>
+              <h2>Search public posts and get to know people's opinion</h2>
             </div>
         <% else %>
           <div>
@@ -148,19 +148,21 @@
 
       <section id="get-started">
         <% unless @user %>
-          <p>Search public posts and posts of your friends</p>
+          <p>Search public posts and get to know people's opinion</p>
           <p>Leverage the facebook social platform to see what people think on various topics.</p>
         <% else %>  
           <div class="logged-in">
             <p>FB Feed Reader</p>
             <form method="post" class="" id="primary-search-box">
              <input type="text" class="search-box"/>
-             <img src="images/loader.gif" class="ajax-spinner hide"/>
+             <img src="images/loader.gif" class="ajax-spinner invisible"/>
             </form> 
             <div class="help-block">Hit enter to search !</div>
           </div>  
         <% end %>  
       </section>
+      <div id="result_set">
+      </div>
     </div>
   </body>
 </html>

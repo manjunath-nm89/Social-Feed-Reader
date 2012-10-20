@@ -199,6 +199,10 @@ header .tagline {
   float: right;
 }
 
+.pull-left{
+  float: left;
+}
+
 #centered-content{
   background: -o-linear-gradient(#E3EEF8, white) white !important;
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#E3EEF8), to(white)) repeat-x, white !important;
@@ -217,3 +221,50 @@ header .tagline {
 .hide{
   display: none;
 }
+
+.invisible{
+  visibility: hidden
+}
+
+.well{
+  min-height: 20px;
+  margin-bottom: 15px;
+  padding: 5px;
+  border: 1px solid #C2C3C3;
+}
+
+#result_set{
+  width: 85%;
+  margin: 0 auto;
+  padding-top: 10px
+}
+
+#result_set .content{
+  margin-left: 60px;
+}
+
+#result_set .content_wrapper{
+  margin-bottom: 15px;
+}
+
+#result_set .content_wrapper img.caption-image{
+  max-width: 500px;
+  max-height: 350px;
+}
+
+#result_set .read-story{
+  font-size: 0.9em;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.bg-grey{
+  background-color: #F5F5F5;
+}
+
+.bg-highlight{
+  background-color: #F7F7E0;
+}
+

@@ -1,0 +1,12 @@
+<% unless @search_results.empty? %>
+  <%= result_parser(@search_results) %>
+  <div class="text-center well show-more-div bg-grey read-story">
+    <% next_page = @search_results.next_page_params[1] %>
+    <a id="show_more_link" href="#" data-q="<%= next_page["q"] %>" data-access-token="<%= next_page["access_token"] %>" data-limit="<%= next_page["limit"] %>" data-until="<%= next_page["until"] %>">Show More</a>
+    <img src="images/loader.gif" class="ajax-spinner hide"/>
+  </div>  
+<% else %>  
+  <div class="text-center well bg-highlight read-story">
+    Oops there were no posts found.
+  </div>
+<% end %>

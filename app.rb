@@ -1,8 +1,12 @@
 require "sinatra"
 require 'koala'
-require 'debugger'
+if development?
+  require "sinatra/reloader" 
+  require 'debugger' 
+end
 
 enable :sessions
+set :protection, :except => :frame_options
 set :raise_errors, false
 set :show_exceptions, false
 
@@ -14,6 +18,7 @@ set :show_exceptions, false
 # See https://developers.facebook.com/docs/reference/api/permissions/
 # for a full list of permissions
 FACEBOOK_SCOPE = ''
+STORY_LENGTH = 150
 
 unless ENV["FACEBOOK_APP_ID"] && ENV["FACEBOOK_SECRET"]
   abort("missing env vars: please set FACEBOOK_APP_ID and FACEBOOK_SECRET with your app credentials")
@@ -46,7 +51,68 @@ helpers do
   def authenticator
     @authenticator ||= Koala::Facebook::OAuth.new(ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_SECRET"], url("/auth/facebook/callback"))
   end
+  
+  def result_parser(search_result_array)
+    output_array = []
+    (search_result_array || []).each do |result_hash|
+      from_details = result_hash["from"]
+      output_array << %Q{
+        <div class="content_wrapper">
+          <div class="fb_img pull-left"> 
+            <a href="https://www.facebook.com/#{from_details["id"]}" target="_blank">
+              <img src="https://graph.facebook.com/#{from_details["id"]}/picture?type=square" alt="#{from_details["name"]}"/>
+            </a>  
+          </div>
+          <div class="content">
+            <div class="content_name">
+              <a href="https://www.facebook.com/#{from_details["id"]}" target="_blank">
+                #{from_details["name"]}
+              </a>  
+            </div>
+            <div class="content_message">
+              #{get_content(result_hash)}
+            </div>
+          </div>
+        </div>  
+      } 
+    end
+    output_array.join("")
+  end
 
+  def fb_truncate(string, length, link, link_title = "Read story")
+    if string.size > length
+      content = %Q{
+        "#{string[0..STORY_LENGTH]}.."
+        <a href='#{link}' target='_blank' class="read-story">#{link_title}</a>
+      }
+    else
+      content = string    
+    end
+    return content
+  end
+
+  def get_content(result_hash)
+    if result_hash["message"].nil?
+      content = %Q{
+        #{result_hash["story"]}
+      }  
+      content += fb_truncate(result_hash["caption"].to_s, STORY_LENGTH, "http://www.facebook.com/#{result_hash["id"]}")
+      if result_hash["type"] == "video"
+        content += %Q{
+          <br/><iframe src="#{result_hash["link"]}"></iframe>
+        }
+      else
+        content += %Q{
+          <br/><a href="#{result_hash["link"]}" target="_blank"><br/>
+            <img class="caption-image" src="https://graph.facebook.com/#{result_hash["object_id"]}/picture"/>
+          </a>  
+        }
+      end
+      return content
+    else
+      return fb_truncate(result_hash["message"], STORY_LENGTH, "http://www.facebook.com/#{result_hash["id"]}")
+    end
+  end
 end
 
 # the facebook session expired! reset ours and restart the process
@@ -57,7 +123,6 @@ end
 
 get "/" do
   intialize_graph_user
-
   erb :index
 end
 
@@ -88,6 +153,13 @@ end
 
 get "/search" do
   intialize_graph_user
+  if !params.delete("pagination").to_s.empty?
+    @search_results = @graph.get_page(["search", params])
+  else
+    query = params[:query]
+    @search_results = @graph.search(query)
+  end
+  erb :search_results, :layout  => false
 end 
 
 def intialize_graph_user
@@ -96,8 +168,7 @@ def intialize_graph_user
 
   # Get public details of current application
   @app  =  @graph.get_object(ENV["FACEBOOK_APP_ID"])
-
   if session[:access_token]
-    @user    = @graph.get_object("me")
+    @user = @graph.get_object("me")
   end
 end
