@@ -5,9 +5,9 @@ gem "koala"
 gem "json"
 gem "httparty"
 gem "thin"
-gem "sinatra-reloader"
 
 group :development do
+  gem "sinatra-reloader"
   gem 'debugger'
   gem "foreman"
 end
