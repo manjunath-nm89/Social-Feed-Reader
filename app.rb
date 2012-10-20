@@ -6,7 +6,6 @@ if development?
 end
 
 enable :sessions
-set :protection, :except => :frame_options
 set :raise_errors, false
 set :show_exceptions, false
 
