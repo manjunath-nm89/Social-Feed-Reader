@@ -12,6 +12,7 @@ $(document).ready(function() {
         complete: function(data){
           $(".ajax-spinner").css({visibility: "hidden"});
           $("#result_set").html(data.responseText);
+          processTimeAndVids();
         }
       });
     }
@@ -37,7 +38,20 @@ $(document).ready(function() {
       complete: function(data){
         showMoreDiv.remove();
         $("#result_set").append(data.responseText);
+        processTimeAndVids();
       }
     });
   });
 });
+
+function processTimeAndVids(){
+  calculateTimeAgo();
+  $(".iframe_container").each(function(){
+    var aLink = $(this).find("a")
+    $(this).oembed(aLink.attr("href"));  
+  });
+}
+
+function calculateTimeAgo(){
+  jQuery("abbr.timeago").timeago();
+}

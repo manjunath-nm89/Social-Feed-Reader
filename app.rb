@@ -1,12 +1,12 @@
 require "sinatra"
 require 'koala'
+require "date"
 if development?
   require "sinatra/reloader" 
   require 'debugger' 
 end
 
 enable :sessions
-set :protection, :except => :frame_options
 set :raise_errors, false
 set :show_exceptions, false
 
@@ -64,13 +64,18 @@ helpers do
             </a>  
           </div>
           <div class="content">
-            <div class="content_name">
+            <div class="content_name bold-font">
               <a href="https://www.facebook.com/#{from_details["id"]}" target="_blank">
                 #{from_details["name"]}
               </a>  
             </div>
             <div class="content_message">
               #{get_content(result_hash)}
+            </div>
+            <div class="footer-options mini-font">
+              <abbr class="timeago" title="#{result_hash["created_time"]}">#{DateTime.parse(result_hash["created_time"]).to_time.strftime("%d %b, %Y")}</abbr>
+              <span class="separator"></span>
+              <a href="#">share</a>
             </div>
           </div>
         </div>  
@@ -79,11 +84,11 @@ helpers do
     output_array.join("")
   end
 
-  def fb_truncate(string, length, link, link_title = "Read story")
+  def fb_truncate(string, length, link, link_title = "Read full story")
     if string.size > length
       content = %Q{
         "#{string[0..STORY_LENGTH]}.."
-        <a href='#{link}' target='_blank' class="read-story">#{link_title}</a>
+        <a href='#{link}' target='_blank' class="mini-font">#{link_title}</a>
       }
     else
       content = string    
@@ -99,8 +104,14 @@ helpers do
       content += fb_truncate(result_hash["caption"].to_s, STORY_LENGTH, "http://www.facebook.com/#{result_hash["id"]}")
       if result_hash["type"] == "video"
         content += %Q{
-          <br/><iframe src="#{result_hash["link"]}"></iframe>
+          <div class="iframe_container mini-font">
+            <a href="#{result_hash["link"]}">#{result_hash["link"]}</a>
+          </div>  
         }
+      elsif result_hash["type"] == "link"
+        content += %Q{
+          <br/><a href="#{result_hash["link"]}" target="_blank">#{result_hash["link"]}</a>
+        }  
       else
         content += %Q{
           <br/><a href="#{result_hash["link"]}" target="_blank"><br/>
