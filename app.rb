@@ -110,7 +110,9 @@ helpers do
         }
       elsif result_hash["type"] == "link"
         content += %Q{
-          <a href="#{result_hash["link"]}" target="_blank">#{result_hash["link"]}</a>
+          <div>
+            <a href="#{result_hash["link"]}" target="_blank">#{result_hash["link"]}</a>
+          </div>  
         }  
       else
         content += %Q{
