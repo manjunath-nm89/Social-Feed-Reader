@@ -99,7 +99,9 @@ helpers do
   def get_content(result_hash)
     if result_hash["message"].nil?
       content = %Q{
-        #{result_hash["story"]}
+        <div>
+          #{result_hash["story"]}
+        </div>  
       }  
       content += fb_truncate(result_hash["caption"].to_s, STORY_LENGTH, "http://www.facebook.com/#{result_hash["id"]}")
       if result_hash["type"] == "video"
@@ -110,11 +112,11 @@ helpers do
         }
       elsif result_hash["type"] == "link"
         content += %Q{
-          <br/><a href="#{result_hash["link"]}" target="_blank">#{result_hash["link"]}</a>
+          <a href="#{result_hash["link"]}" target="_blank">#{result_hash["link"]}</a>
         }  
       else
         content += %Q{
-          <br/><a href="#{result_hash["link"]}" target="_blank"><br/>
+          <a href="#{result_hash["link"]}" target="_blank"><br/>
             <img class="caption-image" src="https://graph.facebook.com/#{result_hash["object_id"]}/picture"/>
           </a>  
         }
