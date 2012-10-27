@@ -74,8 +74,6 @@ helpers do
             </div>
             <div class="footer-options mini-font">
               <abbr class="timeago" title="#{result_hash["created_time"]}">#{DateTime.parse(result_hash["created_time"]).to_time.strftime("%d %b, %Y")}</abbr>
-              <span class="separator"></span>
-              <a href="#">share</a>
             </div>
           </div>
         </div>  
