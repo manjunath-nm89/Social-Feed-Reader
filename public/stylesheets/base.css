@@ -175,7 +175,7 @@ header .tagline {
 
 #get-started .intro{
   text-align: left;
-  width: 95%;
+  width: 100%;
   margin: 0 auto;
   font-size: 12px;
 }
@@ -196,6 +196,7 @@ header .tagline {
 
 #get-started .intro .news .third-story{
   height: 145px;
+  margin-top: 9px; 
 }
   
 #get-started .intro .news .snippet{
