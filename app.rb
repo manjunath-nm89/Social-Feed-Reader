@@ -18,7 +18,7 @@ set :show_exceptions, false
 # See https://developers.facebook.com/docs/reference/api/permissions/
 # for a full list of permissions
 FACEBOOK_SCOPE = ''
-STORY_LENGTH = 150
+STORY_LENGTH = 200
 
 unless ENV["FACEBOOK_APP_ID"] && ENV["FACEBOOK_SECRET"]
   abort("missing env vars: please set FACEBOOK_APP_ID and FACEBOOK_SECRET with your app credentials")
