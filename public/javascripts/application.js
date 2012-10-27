@@ -55,3 +55,4 @@ function processTimeAndVids(){
 function calculateTimeAgo(){
   jQuery("abbr.timeago").timeago();
 }
+

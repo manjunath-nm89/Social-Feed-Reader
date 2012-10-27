@@ -6,7 +6,6 @@
 /* =global elements
 --------------------------------------------- */
 body {
-  border: 1px solid #B3B3B3;
   font: 14px/1.5em "Lucida Grande", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   margin: 20px;
@@ -159,13 +158,12 @@ header .tagline {
 /* =get started
 --------------------------------------------- */
 #get-started {
-  height: 105px;
   text-align: center;
 }
 
 #get-started p {
-  font-size: 24px;
-  height: 23px;
+  font-size: 18px;
+  height: 35px;
   margin-bottom: 24px;
 }
 
@@ -173,6 +171,43 @@ header .tagline {
   width: 70%;
   height: 25px;
   font-size: 18px;
+}
+
+#get-started .intro{
+  text-align: left;
+  width: 95%;
+  margin: 0 auto;
+  font-size: 12px;
+}
+
+#get-started .intro img{
+  height: 170px;
+}
+
+#get-started .intro .news{
+  width: 33%;
+  float: left;
+} 
+
+#get-started .intro .news .second-story{
+  height: 138px;
+  margin-top: 9px;
+}
+
+#get-started .intro .news .third-story{
+  height: 145px;
+}
+  
+#get-started .intro .news .snippet{
+  padding-top: 8px;
+}
+
+#get-started .intro {
+  display: inline-block;
+}
+
+#get-started .footer-note{
+  margin-top: 10px;
 }
 
 /* ------------------------------------------ */
@@ -292,4 +327,18 @@ iframe{
 .bold-font{
   font-weight: bold
 }
+
+.pic-image1{
+  width: 130px;
+}
+
+.pic-offset1{
+  margin-left: 135px;
+}
+
+.strong{
+  font-weight: bold;
+  color: #363636;
+}
+
 
