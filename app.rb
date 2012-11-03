@@ -116,9 +116,11 @@ helpers do
         }  
       else
         content += %Q{
-          <a href="#{result_hash["link"]}" target="_blank"><br/>
-            <img class="caption-image" src="https://graph.facebook.com/#{result_hash["object_id"]}/picture"/>
-          </a>  
+          <div>
+            <a href="#{result_hash["link"]}" target="_blank"><br/>
+              <img class="caption-image" src="https://graph.facebook.com/#{result_hash["object_id"]}/picture"/>
+            </a>  
+          </div>  
         }
       end
       return content
